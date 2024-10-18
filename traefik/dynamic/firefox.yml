@@ -1,0 +1,16 @@
+http:
+  routers:
+    firefox:
+      rule: "Host(`firefox.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: firefox
+  services:
+    firefox:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.0.102:3303"
+        serversTransport: firefoxTransport
+  serversTransports:
+    firefoxTransport:
+      insecureSkipVerify: true

@@ -1,0 +1,12 @@
+http:
+  routers:
+    uptime:
+      rule: "Host(`uptime.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: uptime
+  services:
+    uptime:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:3001"

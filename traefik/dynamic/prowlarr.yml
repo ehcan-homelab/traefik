@@ -1,0 +1,12 @@
+http:
+  routers:
+    prowlarr:
+      rule: "Host(`prowlarr.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: prowlarr
+  services:
+    prowlarr:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:9696"

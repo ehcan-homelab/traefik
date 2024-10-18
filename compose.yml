@@ -1,0 +1,16 @@
+name: traefik
+services:
+  traefik:
+    image: traefik
+    container_name: traefik
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /data/traefik/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /data/traefik/traefik/dynamic:/etc/traefik/dynamic:ro
+      - /data/traefik/letsencrypt:/letsencrypt
+    environment:
+      - CLOUDFLARE_DNS_API_TOKEN

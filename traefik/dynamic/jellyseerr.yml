@@ -1,0 +1,12 @@
+http:
+  routers:
+    jellyseerr:
+      rule: "Host(`jellyseerr.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: jellyseerr
+  services:
+    jellyseerr:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:5055"

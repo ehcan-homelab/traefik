@@ -1,0 +1,7 @@
+http:
+  routers:
+    traefik:
+      rule: "Host(`traefik.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: api@internal

@@ -1,0 +1,12 @@
+http:
+  routers:
+    jellyfin:
+      rule: "Host(`jellyfin.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: jellyfin
+  services:
+    jellyfin:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.101:8096"

@@ -1,0 +1,12 @@
+http:
+  routers:
+    readarr:
+      rule: "Host(`readarr.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: readarr
+  services:
+    readarr:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:8787"

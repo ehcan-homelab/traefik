@@ -1,0 +1,52 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Traefik
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        compose-file-context:
+          - { stack_name: 'traefik', host: '10.10.0.107' }
+
+    env:
+      HOST: ${{ matrix.compose-file-context.host }}
+      DOCKER_HOST: tcp://${{ matrix.compose-file-context.host }}:2375
+      DOCKER_CONTEXT_NAME: ${{ matrix.compose-file-context.stack_name }}-ctx
+      DOCKER_PROJECT_NAME: ${{ matrix.compose-file-context.stack_name }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run command on remote server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /data/traefik
+            git pull origin main
+
+      - name: Set up Docker context
+        run: |
+          docker context \
+            create ${{ env.DOCKER_CONTEXT_NAME }} \
+            --docker host=${{ env.DOCKER_HOST }}
+
+      - name: Deploy with Docker Compose
+        run: |
+          echo "CLOUDFLARE_DNS_API_TOKEN=${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}" > .env
+          docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose pull
+          docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose \
+            --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans
+
+      - name: Cleanup Docker context
+        if: always()
+        run: |
+          docker context rm ${{ env.DOCKER_CONTEXT_NAME }} --force

@@ -1,0 +1,12 @@
+http:
+  routers:
+    audiobookshelf:
+      rule: "Host(`audiobookshelf.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: audiobookshelf
+  services:
+    audiobookshelf:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:13378"

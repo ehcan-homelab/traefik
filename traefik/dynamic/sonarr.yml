@@ -1,0 +1,12 @@
+http:
+  routers:
+    sonarr:
+      rule: "Host(`sonarr.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: sonarr
+  services:
+    sonarr:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:8989"

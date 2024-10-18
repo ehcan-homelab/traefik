@@ -1,0 +1,16 @@
+http:
+  routers:
+    prx1:
+      rule: "Host(`prx1.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: prx1
+  services:
+    prx1:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.0.150:8006"
+        serversTransport: prx1Transport
+  serversTransports:
+    prx1Transport:
+      insecureSkipVerify: true

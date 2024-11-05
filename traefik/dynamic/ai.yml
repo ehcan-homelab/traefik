@@ -1,0 +1,12 @@
+http:
+  routers:
+    openwebui:
+      rule: "Host(`ai.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: openwebui
+  services:
+    openwebui:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:3300"

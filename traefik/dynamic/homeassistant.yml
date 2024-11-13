@@ -1,0 +1,12 @@
+http:
+  routers:
+    homeassistant:
+      rule: "Host(`homeassistant.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: homeassistant
+  services:
+    homeassistant:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.104:8123"

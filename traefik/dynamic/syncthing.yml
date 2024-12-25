@@ -1,0 +1,12 @@
+http:
+  routers:
+    syncthing:
+      rule: "Host(`syncthing.lab.ehcan.io`)"
+      entryPoints:
+        - websecure
+      service: syncthing
+  services:
+    syncthing:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.0.102:8384"

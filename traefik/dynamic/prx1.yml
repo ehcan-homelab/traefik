@@ -9,5 +9,5 @@ http:
     prx1:
       loadBalancer:
         servers:
-          - url: "https://10.10.0.150:8006"
+          - url: "https://192.168.2.150:8006"
         serversTransport: insecureSkipVerifyTransport

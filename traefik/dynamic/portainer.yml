@@ -10,7 +10,4 @@ http:
       loadBalancer:
         servers:
           - url: "https://10.10.0.102:9443"
-        serversTransport: portainerTransport
-  serversTransports:
-    portainerTransport:
-      insecureSkipVerify: true
+        serversTransport: insecureSkipVerifyTransport

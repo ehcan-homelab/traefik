@@ -10,7 +10,4 @@ http:
       loadBalancer:
         servers:
           - url: "https://10.10.0.150:8006"
-        serversTransport: prx1Transport
-  serversTransports:
-    prx1Transport:
-      insecureSkipVerify: true
+        serversTransport: insecureSkipVerifyTransport

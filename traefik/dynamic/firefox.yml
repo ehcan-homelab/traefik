@@ -10,7 +10,4 @@ http:
       loadBalancer:
         servers:
           - url: "https://10.10.0.102:3303"
-        serversTransport: firefoxTransport
-  serversTransports:
-    firefoxTransport:
-      insecureSkipVerify: true
+        serversTransport: insecureSkipVerifyTransport

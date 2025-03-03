@@ -35,3 +35,8 @@ certificatesResolvers:
 api:
   dashboard: true
   insecure: true
+
+metrics:
+  prometheus:
+    headerLabels:
+      useragent: User-Agent

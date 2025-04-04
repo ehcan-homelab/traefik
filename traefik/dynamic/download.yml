@@ -9,4 +9,4 @@ http:
     download:
       loadBalancer:
         servers:
-          - url: "http://10.10.0.102:8077"
+          - url: "http://10.10.0.102:8012"

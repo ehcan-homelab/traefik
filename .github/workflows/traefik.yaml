@@ -23,12 +23,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Load secret from 1Password
+        id: op-load-secret
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          SSH_USERNAME: "op://Github Actions/xptbnlindbeqvq25fpujfqd4xu/SSH_USERNAME"
+          SSH_PASSWORD: "op://Github Actions/xptbnlindbeqvq25fpujfqd4xu/SSH_PASSWORD"
+          CLOUDFLARE_DNS_API_TOKEN: "op://Github Actions/xptbnlindbeqvq25fpujfqd4xu/CLOUDFLARE_DNS_API_TOKEN"
+
       - name: Run command on remote server via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ env.HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          username: ${{ steps.op-load-secret.outputs.SSH_USERNAME }}
+          password: ${{ steps.op-load-secret.outputs.SSH_PASSWORD }}
           script: |
             cd /data/traefik
             git pull origin main
@@ -41,7 +52,7 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          echo "CLOUDFLARE_DNS_API_TOKEN=${{ secrets.CLOUDFLARE_DNS_API_TOKEN }}" > .env
+          echo "CLOUDFLARE_DNS_API_TOKEN=${{ steps.op-load-secret.outputs.CLOUDFLARE_DNS_API_TOKEN }}" > .env
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose pull
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose \
             --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans

@@ -14,4 +14,4 @@ services:
       - /data/traefik/traefik/dynamic:/etc/traefik/dynamic:ro
       - /data/traefik/letsencrypt:/letsencrypt
     environment:
-      - CLOUDFLARE_DNS_API_TOKEN
+      CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}

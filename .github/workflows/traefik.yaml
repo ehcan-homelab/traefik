@@ -7,11 +7,11 @@ on:
 jobs:
   deploy:
     name: Deploy Traefik
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         compose-file-context:
-          - { stack_name: 'traefik', host: '10.10.0.107' }
+          - { stack_name: 'traefik', host: 'prx1-traefik' }
 
     env:
       HOST: ${{ matrix.compose-file-context.host }}
@@ -23,26 +23,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:github-actions
+
       - name: Load secret from 1Password
         id: op-load-secret
-        uses: 1password/load-secrets-action@v2
+        uses: 1password/load-secrets-action@v3
         with:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           SSH_USERNAME: "op://Github Actions/xptbnlindbeqvq25fpujfqd4xu/SSH_USERNAME"
-          SSH_PASSWORD: "op://Github Actions/xptbnlindbeqvq25fpujfqd4xu/SSH_PASSWORD"
           CLOUDFLARE_DNS_API_TOKEN: "op://Github Actions/xptbnlindbeqvq25fpujfqd4xu/CLOUDFLARE_DNS_API_TOKEN"
 
       - name: Run command on remote server via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.HOST }}
-          username: ${{ steps.op-load-secret.outputs.SSH_USERNAME }}
-          password: ${{ steps.op-load-secret.outputs.SSH_PASSWORD }}
-          script: |
-            cd /data/traefik
-            git pull origin main
+        env:
+          HOSTNAME: ${{ env.HOST }}
+          USERNAME: ${{ steps.op-load-secret.outputs.SSH_USERNAME }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ env.USERNAME }}@${{ env.HOSTNAME }} <<'EOF'
+          cd /data/traefik
+          git pull origin main
+          EOF
 
       - name: Set up Docker context
         run: |
@@ -52,8 +58,7 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          echo "CLOUDFLARE_DNS_API_TOKEN=${{ steps.op-load-secret.outputs.CLOUDFLARE_DNS_API_TOKEN }}" > .env
-          docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose pull
+          echo "CLOUDFLARE_DNS_API_TOKEN=${{ steps.op-load-secret.outputs.CLOUDFLARE_DNS_API_TOKEN }}" >> $GITHUB_ENV
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose \
             --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans
 

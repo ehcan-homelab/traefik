@@ -58,7 +58,7 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          echo "CLOUDFLARE_DNS_API_TOKEN=${{ steps.op-load-secret.outputs.CLOUDFLARE_DNS_API_TOKEN }}" >> $GITHUB_ENV
+          echo "CLOUDFLARE_DNS_API_TOKEN=${{ steps.op-load-secret.outputs.CLOUDFLARE_DNS_API_TOKEN }}" > .env
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose \
             --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans
 

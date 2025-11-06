@@ -3,7 +3,7 @@
 http:
   routers:
     arr_prowlarr:
-      rule: "Host(`prowlarr.lab.ehcan.io`)"
+      rule: "Host(`prowlarr.lab.ehcan.io`) || Host(`prowlarr.media.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_prowlarr

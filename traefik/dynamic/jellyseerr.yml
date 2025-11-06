@@ -3,7 +3,7 @@
 http:
   routers:
     jellyseerr:
-      rule: "Host(`jellyseerr.lab.ehcan.io`)"
+      rule: "Host(`jellyseerr.lab.ehcan.io`) || Host(`jellyseerr.media.ehcan.io`)"
       entryPoints:
         - websecure
       service: jellyseerr

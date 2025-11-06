@@ -3,7 +3,7 @@
 http:
   routers:
     arr_sonarr:
-      rule: "Host(`sonarr.lab.ehcan.io`)"
+      rule: "Host(`sonarr.lab.ehcan.io`) || Host(`sonarr.media.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_sonarr

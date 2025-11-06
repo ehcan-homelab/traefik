@@ -15,33 +15,8 @@ length=$(yq 'length' "$ROUTES_FILE")
 # Iterate through each entry
 for ((i=0; i<$length; i++)); do
     name=$(yq ".[$i].name" "$ROUTES_FILE")
-    domains=$(yq ".[$i].domains" "$ROUTES_FILE")
-    urls=$(yq ".[$i].urls" "$ROUTES_FILE")
-
-    # Process domains: split by comma, trim spaces, and format for Traefik
-    formatted_domains=""
-    IFS=',' read -ra DOMAIN_ARRAY <<< "$domains"
-    for domain in "${DOMAIN_ARRAY[@]}"; do
-        # Trim whitespace and append to formatted string
-        domain=$(echo "$domain" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-        if [ -z "$formatted_domains" ]; then
-            formatted_domains="\`$domain\`"
-        else
-            formatted_domains="$formatted_domains, \`$domain\`"
-        fi
-    done
-
-    # Process URLs and format them for the output
-    formatted_urls=""
-    IFS=',' read -ra URL_ARRAY <<< "$urls"
-    for url in "${URL_ARRAY[@]}"; do
-        # Trim whitespace
-        url=$(echo "$url" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-        formatted_urls+="          - url: \"$url\""$'\n'
-    done
-
-    # Remove the last newline from formatted_urls
-    formatted_urls=${formatted_urls%$'\n'}
+    domain=$(yq ".[$i].domain" "$ROUTES_FILE")
+    url=$(yq ".[$i].url" "$ROUTES_FILE")
 
     # Create the base configuration
     cat > "$OUTPUT_DIR/$name.yml" << EOF
@@ -50,7 +25,7 @@ for ((i=0; i<$length; i++)); do
 http:
   routers:
     $name:
-      rule: "Host($formatted_domains)"
+      rule: "Host(\`$domain\`)"
       entryPoints:
         - websecure
       service: $name
@@ -58,11 +33,11 @@ http:
     $name:
       loadBalancer:
         servers:
-$formatted_urls
+          - url: "$url"
 EOF
 
-    # If any URL starts with https://, add serversTransport
-    if [[ "$urls" == *https* ]]; then
+    # If URL starts with https://, add serversTransport
+    if [[ "$url" == https://* ]]; then
         echo "        serversTransport: insecureSkipVerifyTransport" >> "$OUTPUT_DIR/$name.yml"
     fi
 done

@@ -3,7 +3,7 @@
 http:
   routers:
     arr_readarr:
-      rule: "Host(`readarr.lab.ehcan.io`, `readarr.media.ehcan.io`)"
+      rule: "Host(`readarr.lab.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_readarr

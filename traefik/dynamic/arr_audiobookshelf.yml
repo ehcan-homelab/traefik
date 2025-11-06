@@ -3,7 +3,7 @@
 http:
   routers:
     arr_audiobookshelf:
-      rule: "Host(`audiobookshelf.lab.ehcan.io`, `audiobookshelf.media.ehcan.io`)"
+      rule: "Host(`audiobookshelf.lab.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_audiobookshelf

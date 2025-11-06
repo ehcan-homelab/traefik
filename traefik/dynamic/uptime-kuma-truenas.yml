@@ -3,7 +3,7 @@
 http:
   routers:
     uptime-kuma-truenas:
-      rule: "Host(`uptime2.lab.ehcan.io`, `uptime-kuma-truenas.lab.ehcan.io`)"
+      rule: "Host(`uptime2.lab.ehcan.io`)"
       entryPoints:
         - websecure
       service: uptime-kuma-truenas

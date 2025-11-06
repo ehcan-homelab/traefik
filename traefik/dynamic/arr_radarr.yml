@@ -3,7 +3,7 @@
 http:
   routers:
     arr_radarr:
-      rule: "Host(`radarr.lab.ehcan.io`, `radarr.media.ehcan.io`)"
+      rule: "Host(`radarr.lab.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_radarr

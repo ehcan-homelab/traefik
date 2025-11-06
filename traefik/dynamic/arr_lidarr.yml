@@ -3,7 +3,7 @@
 http:
   routers:
     arr_lidarr:
-      rule: "Host(`lidarr.lab.ehcan.io`, `lidarr.media.ehcan.io`)"
+      rule: "Host(`lidarr.lab.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_lidarr

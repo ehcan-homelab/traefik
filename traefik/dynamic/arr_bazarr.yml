@@ -3,7 +3,7 @@
 http:
   routers:
     arr_bazarr:
-      rule: "Host(`bazarr.lab.ehcan.io`, `bazarr.media.ehcan.io`)"
+      rule: "Host(`bazarr.lab.ehcan.io`)"
       entryPoints:
         - websecure
       service: arr_bazarr

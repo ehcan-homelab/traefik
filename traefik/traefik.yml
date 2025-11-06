@@ -15,9 +15,6 @@ entryPoints:
           - main: "lab.ehcan.io"
             sans:
               - "*.lab.ehcan.io"
-          - main: "media.ehcan.io"
-            sans:
-              - "*.media.ehcan.io"
   metrics:
     address: ":8082"
 

@@ -3,7 +3,7 @@
 http:
   routers:
     jellyfin:
-      rule: "Host(`jellyfin.lab.ehcan.io`)"
+      rule: "Host(`jellyfin.lab.ehcan.io`, `jellyfin.media.ehcan.io`)"
       entryPoints:
         - websecure
       service: jellyfin

@@ -1,0 +1,87 @@
+# Infrastructure
+- name: proxmox
+  domain: prx1.lab.ehcan.io
+  url: https://192.168.2.150:8006
+- name: truenas
+  domain: truenas.lab.ehcan.io
+  url: https://192.168.2.149
+- name: synology
+  domain: synology.lab.ehcan.io
+  url: https://192.168.2.148:5001
+
+# Monitoring & Administration
+- name: portainer
+  domain: portainer.lab.ehcan.io
+  url: https://10.10.0.102:9443
+- name: uptime-kuma-prx
+  domain: uptime.lab.ehcan.io
+  url: http://10.10.0.102:3001
+- name: uptime-kuma-truenas
+  domain: uptime2.lab.ehcan.io
+  url: http://192.168.2.149:31050
+- name: grafana
+  domain: grafana.lab.ehcan.io
+  url: http://10.10.0.108:3000
+
+# Media Stack
+- name: arr_audiobookshelf
+  domain: audiobookshelf.lab.ehcan.io
+  url: http://10.10.0.102:13378
+- name: arr_bazarr
+  domain: bazarr.lab.ehcan.io
+  url: http://10.10.0.102:6767
+- name: arr_lidarr
+  domain: lidarr.lab.ehcan.io
+  url: http://10.10.0.102:8686
+- name: arr_radarr
+  domain: radarr.lab.ehcan.io
+  url: http://10.10.0.102:7878
+- name: arr_readarr
+  domain: readarr.lab.ehcan.io
+  url: http://10.10.0.102:8787
+- name: arr_sonarr
+  domain: sonarr.lab.ehcan.io
+  url: http://10.10.0.102:8989
+- name: arr_prowlarr
+  domain: prowlarr.lab.ehcan.io
+  url: http://10.10.0.102:9696
+
+- name: jellyfin
+  domain: jellyfin.lab.ehcan.io
+  url: http://10.10.0.101:8096
+- name: jellyseerr
+  domain: jellyseerr.lab.ehcan.io
+  url: http://10.10.0.102:5055
+
+- name: metube
+  domain: metube.lab.ehcan.io
+  url: http://10.10.0.102:8081
+
+- name: syncthing-synology
+  domain: syncthing.lab.ehcan.io
+  url: http://192.168.2.148:8384
+- name: syncthing-prx
+  domain: syncthing2.lab.ehcan.io
+  url: http://10.10.0.102:8384
+
+# AI Services
+- name: ai_litellm
+  domain: litellm.lab.ehcan.io
+  url: http://10.10.0.102:4000
+- name: ai_openwebui
+  domain: ai.lab.ehcan.io
+  url: http://10.10.0.102:3300
+
+# Apps & Utilities
+- name: n8n
+  domain: n8n.lab.ehcan.io
+  url: http://10.10.0.102:5678
+- name: homarr
+  domain: lab.ehcan.io
+  url: http://10.10.0.102:7575
+- name: homeassistant
+  domain: homeassistant.lab.ehcan.io
+  url: http://10.10.0.104:8123
+- name: homebridge
+  domain: homebridge.lab.ehcan.io
+  url: http://10.10.0.105:8581

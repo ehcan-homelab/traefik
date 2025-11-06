@@ -2,13 +2,13 @@
 # Edit routes.yml to modify these settings
 http:
   routers:
-    jellyseerr:
-      rule: "Host(`jellyseerr.lab.ehcan.io`)"
+    syncthing-synology:
+      rule: "Host(`syncthing.lab.ehcan.io`)"
       entryPoints:
         - websecure
-      service: jellyseerr
+      service: syncthing-synology
   services:
-    jellyseerr:
+    syncthing-synology:
       loadBalancer:
         servers:
-          - url: "http://10.10.0.102:5055"
+          - url: "http://192.168.2.148:8384"

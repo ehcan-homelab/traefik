@@ -2,14 +2,14 @@
 # Edit routes.yml to modify these settings
 http:
   routers:
-    portainer:
-      rule: "Host(`portainer.lab.ehcan.io`)"
+    synology:
+      rule: "Host(`synology.lab.ehcan.io`)"
       entryPoints:
         - websecure
-      service: portainer
+      service: synology
   services:
-    portainer:
+    synology:
       loadBalancer:
         servers:
-          - url: "https://10.10.0.102:9443"
+          - url: "https://192.168.2.148:5001"
         serversTransport: insecureSkipVerifyTransport

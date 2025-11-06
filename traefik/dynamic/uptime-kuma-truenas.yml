@@ -2,13 +2,13 @@
 # Edit routes.yml to modify these settings
 http:
   routers:
-    jellyseerr:
-      rule: "Host(`jellyseerr.lab.ehcan.io`)"
+    uptime-kuma-truenas:
+      rule: "Host(`uptime2.lab.ehcan.io`)"
       entryPoints:
         - websecure
-      service: jellyseerr
+      service: uptime-kuma-truenas
   services:
-    jellyseerr:
+    uptime-kuma-truenas:
       loadBalancer:
         servers:
-          - url: "http://10.10.0.102:5055"
+          - url: "http://192.168.2.149:31050"

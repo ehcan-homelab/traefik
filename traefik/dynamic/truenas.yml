@@ -2,14 +2,14 @@
 # Edit routes.yml to modify these settings
 http:
   routers:
-    portainer:
-      rule: "Host(`portainer.lab.ehcan.io`)"
+    truenas:
+      rule: "Host(`truenas.lab.ehcan.io`)"
       entryPoints:
         - websecure
-      service: portainer
+      service: truenas
   services:
-    portainer:
+    truenas:
       loadBalancer:
         servers:
-          - url: "https://10.10.0.102:9443"
+          - url: "https://192.168.2.149"
         serversTransport: insecureSkipVerifyTransport

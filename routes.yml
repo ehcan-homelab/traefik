@@ -93,3 +93,6 @@
 - name: homebridge
   domains: homebridge.lab.ehcan.io
   urls: http://10.10.0.105:8581
+- name: paperless-ngx
+  domains: docs.lab.ehcan.io
+  urls: http://192.168.2.149:8012

@@ -11,4 +11,4 @@ http:
     n8n:
       loadBalancer:
         servers:
-          - url: "http://10.10.0.102:5678"
+          - url: "http://10.10.0.103:5678"

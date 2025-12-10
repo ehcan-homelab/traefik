@@ -21,6 +21,9 @@
 - name: portainer
   domains: portainer.lab.ehcan.io
   urls: https://10.10.0.102:9443
+- name: prunemate
+  domains: prunemate.lab.ehcan.io
+  urls: http://10.10.0.102:7676
 - name: uptime-kuma-prx
   domains: uptime.lab.ehcan.io
   urls: http://10.10.0.102:3001

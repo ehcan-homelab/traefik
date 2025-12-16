@@ -87,9 +87,6 @@
 - name: n8n
   domains: n8n.lab.ehcan.io
   urls: http://10.10.0.103:5678
-- name: homarr
-  domains: lab.ehcan.io
-  urls: http://10.10.0.102:7575
 - name: homeassistant
   domains: homeassistant.lab.ehcan.io
   urls: http://10.10.0.104:8123

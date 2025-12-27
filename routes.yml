@@ -76,7 +76,7 @@
   urls: http://10.10.0.102:8384
 
 # AI Services
-- name: ai_litellm
+- name: metabase
   domains: litellm.lab.ehcan.io
   urls: http://10.10.0.102:4000
 - name: ai_openwebui
@@ -96,3 +96,6 @@
 - name: paperless-ngx
   domains: docs.lab.ehcan.io
   urls: http://192.168.2.149:8012
+- name: metabase
+  domains: metabase.lab.ehcan.io
+  urls: http://10.10.0.102:3003

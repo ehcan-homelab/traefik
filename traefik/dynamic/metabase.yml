@@ -2,13 +2,13 @@
 # Edit routes.yml to modify these settings
 http:
   routers:
-    ai_litellm:
-      rule: "Host(`litellm.lab.ehcan.io`)"
+    metabase:
+      rule: "Host(`metabase.lab.ehcan.io`)"
       entryPoints:
         - websecure
-      service: ai_litellm
+      service: metabase
   services:
-    ai_litellm:
+    metabase:
       loadBalancer:
         servers:
-          - url: "http://10.10.0.102:4000"
+          - url: "http://10.10.0.102:3003"

@@ -33,6 +33,9 @@
 - name: grafana
   domains: grafana.lab.ehcan.io
   urls: http://10.10.0.108:3000
+- name: databasus
+  domains: databasus.lab.ehcan.io, db-backup.lab.ehcan.io
+  urls: http://10.10.0.102:4005
 
 # Media Stack
 - name: arr_audiobookshelf

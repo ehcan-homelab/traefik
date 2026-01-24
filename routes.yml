@@ -79,7 +79,7 @@
   urls: http://10.10.0.102:8384
 
 # AI Services
-- name: metabase
+- name: litellm
   domains: litellm.lab.ehcan.io
   urls: http://10.10.0.102:4000
 - name: ai_openwebui

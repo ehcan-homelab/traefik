@@ -53,6 +53,9 @@
 - name: arr_readarr
   domains: readarr.lab.ehcan.io, readarr.media.ehcan.io
   urls: http://10.10.0.102:8787
+- name: arr_calibre
+  domains: calibre.media.ehcan.io
+  urls: http://10.10.0.102:8083
 - name: arr_sonarr
   domains: sonarr.lab.ehcan.io, sonarr.media.ehcan.io
   urls: http://10.10.0.102:8989

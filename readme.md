@@ -1,32 +1,37 @@
-# Ehsan's homelab: Traefik automation
+# ehcan-homelab/traefik
 
-## Install Githooks
+Traefik reverse proxy configs for lab.ehcan.io — auto-generated from `routes.yml`.
+
+## Quickstart
 
 ```sh
-chmod +x generate-configs.sh
-ln -sf "$(pwd)/generate-configs.sh" .git/hooks/pre-commit
+make hooks    # Install githooks (core.hooksPath=.githooks)
+make generate # Generate dynamic configs from routes.yml
 ```
 
-Now the configuration files will be automatically generated whenever you commit changes.
+## How it works
 
-## Traefik Configuration Generator
+- Edit `routes.yml` — single source of truth for all services
+- `generate-configs.sh` reads routes.yml, writes per-service configs to `traefik/dynamic/`
+- Pre-commit hook runs generate + stages results automatically
+- Files starting with `_` in `dynamic/` are preserved; everything else is regenerated
 
-This tool automatically generates Traefik dynamic configuration files from a single `routes.yml` file.
+## Add a service
 
-### Requirements
+Add an entry to `routes.yml`. Each entry has 3 fields:
 
-- `yq` command line tool
-- bash shell
-- git (for pre-commit hook)
+| Field     | Description                                                                      |
+| --------- | -------------------------------------------------------------------------------- |
+| `name`    | Service name — used as the config filename and Traefik router/service identifier |
+| `domains` | Comma-separated domains for routing (e.g. `app.lab.ehcan.io,app.media.ehcan.io`) |
+| `urls`    | Comma-separated upstream URLs — multiple URLs enable load balancing              |
 
-### Manual Usage
-
-```bash
-./generate-configs.sh
+```yaml
+- name: myapp
+  domains: myapp.lab.ehcan.io
+  urls: http://10.0.0.1:8080
 ```
 
-### Notes
+URLs starting with `https://` automatically get `serversTransport: insecureSkipVerifyTransport`.
 
-- Files in the `dynamic` directory starting with `_` (underscore) are preserved
-- All other files in the `dynamic` directory are regenerated on each run
-- Always edit `routes.yml` to modify configurations, not the generated files
+Commit — config auto-generates.

@@ -93,9 +93,6 @@
 - name: n8n
   domains: n8n.lab.ehcan.io
   urls: http://10.10.0.103:5678
-- name: n8n-remote
-  domains: n8n-remote.lab.ehcan.io
-  urls: http://gcloud-1:5678
 - name: homeassistant
   domains: homeassistant.lab.ehcan.io
   urls: http://10.10.0.104:8123

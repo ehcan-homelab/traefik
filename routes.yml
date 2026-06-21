@@ -102,3 +102,6 @@
 - name: paperless-ngx
   domains: docs.lab.ehcan.io
   urls: http://192.168.2.149:8012
+- name: notes
+  domains: notes.lab.ehcan.io
+  urls: http://10.10.0.102:9900
